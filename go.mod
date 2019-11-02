@@ -16,7 +16,7 @@ require (
 	github.com/iris-contrib/formBinder v5.0.0+incompatible // indirect
 	github.com/iris-contrib/go.uuid v2.0.0+incompatible // indirect
 	github.com/json-iterator/go v1.1.7 // indirect
-	github.com/kataras/golog v0.0.9 // indirect
+	github.com/kataras/golog v0.0.9
 	github.com/kataras/iris v11.1.1+incompatible
 	github.com/klauspost/compress v1.8.6 // indirect
 	github.com/klauspost/cpuid v1.2.1 // indirect
@@ -26,5 +26,6 @@ require (
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	gopkg.in/yaml.v2 v2.2.4 // indirect
+	xorm.io/core v0.7.2
 	xorm.io/xorm v0.8.0
 )

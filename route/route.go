@@ -1,11 +1,10 @@
 package route
 
 import (
-	"Eze-go-server/controller/admin"
-	"Eze-go-server/controller/party"
-	"Eze-go-server/controller/user"
+	"Eze-go-server/controller"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/context"
+	"github.com/kataras/iris/hero"
 )
 
 func Hub() *iris.Application {
@@ -14,28 +13,28 @@ func Hub() *iris.Application {
 
 	// 函数式
 	app.PartyFunc("/party", func(ctx iris.Party) {
-		ctx.Get("/wu", party.Wu)
-		ctx.Get("/you", party.You)
+		ctx.Get("/wu", controller.WuParty)
+		ctx.Get("/you", controller.YouParty)
 	})
 
-	// v1版本
-	v1 := app.Party("/v1")
+	// user版本
+	v1 := app.Party("/user")
 	v1.Use(func(ctx context.Context) {
 		ctx.Next()
 	})
 	{
-		v1.Get("/wu", admin.Wu)
-		v1.Get("/you", admin.You)
+		v1.Get("/wu", controller.WuUser)
+		v1.Get("/you", hero.Handler(controller.YouUser))
 	}
 
-	// v2版本
-	v2 := app.Party("/v2")
+	// admin版本
+	v2 := app.Party("/admin")
 	v2.Use(func(ctx context.Context) {
 		ctx.Next()
 	})
 	{
-		v2.Get("/wu", user.Wu)
-		v2.Get("/you", user.You)
+		v2.Get("/wu", controller.WuAdmin)
+		v2.Get("/you", controller.WuAdmin)
 	}
 
 	return app

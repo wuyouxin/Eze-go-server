@@ -1,7 +1,6 @@
 package main
 
 import (
-	_ "Eze-go-server/engine"
 	"Eze-go-server/route"
 	"github.com/kataras/iris"
 )

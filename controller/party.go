@@ -1,17 +1,17 @@
-package admin
+package controller
 
 import "github.com/kataras/iris"
 
-func Wu(ctx iris.Context) {
+func WuParty(ctx iris.Context) {
 	_, _ = ctx.JSON(iris.Map{
 		"code": iris.StatusOK,
-		"msg":  "v1 wu",
+		"msg":  "party wu",
 	})
 }
 
-func You(ctx iris.Context) {
+func YouParty(ctx iris.Context) {
 	_, _ = ctx.JSON(iris.Map{
 		"code": iris.StatusOK,
-		"msg":  "v1 you",
+		"msg":  "party you",
 	})
 }
