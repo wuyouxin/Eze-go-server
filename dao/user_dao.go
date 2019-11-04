@@ -8,10 +8,12 @@ import (
 func GetAll() []models.User {
 	engine := datasource.DB
 	datalist := make([]models.User, 0)
-	err := engine.Desc("id").Find(&datalist)
-	if err != nil {
-		return datalist
-	} else {
-		return datalist
-	}
+	_ = engine.Desc("id").Find(&datalist)
+	return datalist
+}
+
+func Insert() {
+	engine := datasource.DB
+	user := &models.User{Password: "dsddd"}
+	_, _ = engine.Insert(user)
 }

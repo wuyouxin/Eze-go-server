@@ -5,6 +5,7 @@ import (
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/context"
 	"github.com/kataras/iris/hero"
+	"github.com/kataras/iris/mvc"
 )
 
 func Hub() *iris.Application {
@@ -23,8 +24,8 @@ func Hub() *iris.Application {
 		ctx.Next()
 	})
 	{
-		v1.Get("/wu", controller.WuUser)
-		v1.Get("/you", hero.Handler(controller.YouUser))
+		v1.Get("/wu", hero.Handler(controller.GetUserAll))
+		v1.Get("/you", controller.YouUser)
 	}
 
 	// admin版本
@@ -36,6 +37,48 @@ func Hub() *iris.Application {
 		v2.Get("/wu", controller.WuAdmin)
 		v2.Get("/you", controller.WuAdmin)
 	}
+
+	crs := func(ctx iris.Context) {
+		ctx.Header("Access-Control-Allow-Origin", "*")
+		ctx.Header("Access-Control-Allow-Credentials", "true")
+		ctx.Header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin,Content-Type")
+		ctx.Next()
+	}
+
+	crsv := app.Party("/api/crs", crs).AllowMethods(iris.MethodOptions)
+	{
+		crsv.Post("/main", func(ctx context.Context) {
+			ctx.Application().Logger().Info("======   >>> crsv")
+		})
+
+		crsv.Get("/home", func(ctx context.Context) {
+			ctx.Application().Logger().Info("======   >>> crsv")
+		})
+
+		crsv.Delete("/home", func(ctx context.Context) {
+			ctx.Application().Logger().Info("======   >>> crsv")
+		})
+
+		crsv.Put("/home", func(ctx context.Context) {
+			ctx.Application().Logger().Info("======   >>> crsv")
+		})
+
+	}
+
+	app.UseGlobal(func(ctx context.Context) {
+		_, _ = ctx.HTML("<h1>Use Global</h1>")
+		ctx.Next()
+	})
+
+	app.DoneGlobal(func(ctx context.Context) {
+		_, _ = ctx.HTML("<h1>Done Global</h1>")
+	})
+
+	mvc.Configure(app.Party("/sub", crs).AllowMethods(iris.MethodOptions)).Handle(new(controller.BasicController))
+
+	mvc.Configure(app.Party("/basic"), func(mvc *mvc.Application) {
+		mvc.Handle(new(controller.BasicController))
+	})
 
 	return app
 

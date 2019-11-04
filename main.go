@@ -6,5 +6,7 @@ import (
 )
 
 func main() {
-	_ = route.Hub().Run(iris.Addr(":9000"))
+	app := route.Hub()
+	app.Logger().SetLevel("debug")
+	_ = app.Run(iris.Addr(":9000"))
 }

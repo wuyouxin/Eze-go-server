@@ -5,16 +5,12 @@ import (
 	"github.com/kataras/iris"
 )
 
-type UserController interface {
-	WuUser()
-}
-
-func WuUser(ctx iris.Context) {
-	wu := dao.GetAll()
+func GetUserAll(ctx iris.Context) {
+	data := dao.GetAll()
 	_, _ = ctx.JSON(iris.Map{
 		"code": iris.StatusOK,
 		"msg":  "v2 wu",
-		"data": wu,
+		"data": data,
 	})
 }
 
