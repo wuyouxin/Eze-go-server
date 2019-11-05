@@ -7,13 +7,9 @@ import (
 	"xorm.io/core"
 )
 
-var (
-	DB = mysqlEngine()
-)
+func MysqlEngine() *xorm.Engine {
 
-func mysqlEngine() *xorm.Engine {
-
-	engine, err := xorm.NewEngine("mysql", "root:root@tcp(127.0.0.1:3306)/saber?charset=utf8")
+	engine, err := xorm.NewEngine("mysql", "root:root@tcp(127.0.0.1:3306)/eze?charset=utf8")
 
 	if err != nil {
 		golog.Fatalf("初始化数据库连接失败!! %s", err)
@@ -21,7 +17,7 @@ func mysqlEngine() *xorm.Engine {
 
 	engine.ShowSQL(true)
 
-	engine.SetTableMapper(core.NewPrefixMapper(core.SnakeMapper{}, "blade_"))
+	engine.SetTableMapper(core.NewPrefixMapper(core.SnakeMapper{}, "sys_"))
 
 	return engine
 }

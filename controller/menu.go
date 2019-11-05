@@ -6,13 +6,13 @@ import (
 	"github.com/kataras/iris/mvc"
 )
 
-type UserController struct {
+type MenuController struct {
 	Ctx     iris.Context
-	Service service.UserService
+	Service service.MenuService
 }
 
-func (u *UserController) Get() mvc.Result {
-	data := u.Service.GetAll()[1]
+func (m *MenuController) Get() mvc.Result {
+	data := m.Service.GetAll()
 	return mvc.Response{
 		Object: map[string]interface{}{
 			"status": iris.StatusOK,
