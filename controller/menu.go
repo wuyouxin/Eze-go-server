@@ -2,8 +2,8 @@ package controller
 
 import (
 	"Eze-go-server/service"
-	"github.com/kataras/iris"
 	"github.com/kataras/iris/mvc"
+	"github.com/kataras/iris/v12"
 )
 
 type MenuController struct {
